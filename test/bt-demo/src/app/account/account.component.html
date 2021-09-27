@@ -1,0 +1,82 @@
+<div class="container">
+  <h2>account list</h2>
+  <p>----------------------</p>
+  <table class="table">
+    <tr>
+      <th>username</th>
+      <th>password</th>
+      <th>action</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let c of Accounts">
+      <td>{{c.username}}</td>
+      <td>{{c.password}}</td>
+      <td>
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#showEdit" (click)="showEdit(c.username)">Edit Account</button>
+        <button class="btn btn-danger" (click)="delete(c.username)">delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showCreate">Create Account
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="showCreate" role="dialog">
+    <div class="modal-dialog">
+
+      <form [formGroup]="accountFormGroup">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">create account</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            enter username: <input placeholder="username" formControlName="username"><br>
+            <p *ngIf="!accountFormGroup.get('username')?.valid" style="color: red">tài khoản không thể < 6 chữ cái</p>
+            enter password: <input placeholder="password" formControlName="password"><br>
+            <p *ngIf="!accountFormGroup.get('password')?.valid" style="color: red">mật khẩu không thể < 6 chữ cái</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" data-dismiss="modal" (click)="create()"
+            [disabled]="accountFormGroup.invalid">create</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+<!--  edit-->
+  <!-- Modal -->
+  <div class="modal fade" id="showEdit" role="dialog">
+    <div class="modal-dialog">
+
+      <form [formGroup]="accountFormGroup">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">edit account</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            enter username: <input placeholder="username" formControlName="username"><br>
+            <p *ngIf="!accountFormGroup.valid" style="color: red">tài khoản không thể < 6 chữ cái</p>
+            enter password: <input placeholder="password" formControlName="password"><br>
+            <p *ngIf="!accountFormGroup.valid" style="color: red">mật khẩu không thể < 6 chữ cái</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" data-dismiss="modal" (click)="submitEdit()">edit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

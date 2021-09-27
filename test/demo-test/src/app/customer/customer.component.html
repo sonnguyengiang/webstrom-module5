@@ -1,0 +1,88 @@
+<div class="container">
+  <h1>player list</h1>
+  <p>---abcdz----</p>
+  <table class="table">
+    <tr>
+      <th>name</th>
+      <th>age</th>
+      <th>address</th>
+      <th>gender</th>
+      <th>avatar</th>
+      <th>action</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let c of Customer">
+      <td>{{c.name}}</td>
+      <td>{{c.age}}</td>
+      <td>{{c.address}}</td>
+      <td>{{c.gender}}</td>
+      <td><img src="{{c.avatar}}" width="100px" height="100px"></td>
+      <td>
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#showEdit"
+                (click)="showEit(c.name)">edit player
+        </button>
+        <button class="btn btn-danger" (click)="delete(c.name)">delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Trigger the modal with a button (create)-->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showCreate">Create player</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="showCreate" role="dialog">
+    <div class="modal-dialog">
+
+      <form [formGroup]="customerFormGroup">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Create player</h4>
+          <button type="button" class="close" data-dismiss="modal" (click)="customerFormGroup.reset()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <input placeholder="name" formControlName="name"><br>
+          <p *ngIf="!customerFormGroup.get('name').valid">true</p>
+          <input placeholder="age" formControlName="age"><br>
+          <input placeholder="address" formControlName="address"><br>
+          <input placeholder="gender" formControlName="gender"><br>
+          <input placeholder="avatar url" formControlName="avatar"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="create()">create</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="customerFormGroup.reset()">Close</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="showEdit" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <form [formGroup]="customerFormGroup">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Create player</h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="customerFormGroup.reset()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <input placeholder="name" formControlName="name"><br>
+            <input placeholder="age" formControlName="age"><br>
+            <input placeholder="address" formControlName="address"><br>
+            <input placeholder="gender" formControlName="gender"><br>
+            <input placeholder="avatar url" formControlName="avatar"><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="submitEdit()" >edit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="customerFormGroup.reset()">Close</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

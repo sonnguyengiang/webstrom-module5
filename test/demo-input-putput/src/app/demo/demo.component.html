@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>test</h2>
+  <h3>{{customerName | json}}</h3>
+  <input type="text" (keyup)="customerTest($event)" #test123>
+  <h1>
+    string is: {{test}}
+  </h1>
+  <code>{{test123.value|json}}</code>
+  <p>-----------------------</p>
+  <input type="text" [(ngModel)]="test">
+  <h2 [style.color]="test.length % 2 == 0 ? 'red': 'yellow' ">
+    test is: {{test}}
+  </h2>
+  <p>-----------------------</p>
+
+  <h1>create customer | edit</h1>
+  <form [formGroup]="customerFormGroup">
+    <!--  <input [(ngModel)]="name" placeholder="name"><br>-->
+    <!--  <input [(ngModel)]="age" placeholder="age"><br>-->
+    <!--  <input [(ngModel)]="address" placeholder="address"><br>-->
+      <input placeholder="name" formControlName="name"><br>
+      <input placeholder="age" formControlName="age"><br>
+      <input placeholder="address" formControlName="address"><br>
+      <button class="btn btn-success" (click)="create()">create</button>
+      <button class="btn btn-dark" (click)="edit(name)">edit</button>
+  </form>
+  <h1>customer list</h1>
+  <table class="table">
+    <th>name</th>
+    <th>age</th>
+    <th>address</th>
+    <th>status</th>
+    <th>action</th>
+    <tbody>
+    <tr *ngFor="let c of customers">
+      <td>{{c.name}}</td>
+      <td>{{c.age}}</td>
+      <td>{{c.address}}</td>
+      <td *ngIf="c.status === true">online</td>
+      <td *ngIf="c.status === false">offline</td>
+      <td>
+        <button class="btn btn-dark" (click)="showEdit(c.name)">edit</button>
+        <button class="btn btn-danger" (click)="delete(c.name)">delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
